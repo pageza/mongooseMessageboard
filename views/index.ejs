@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mongoose Messageboard</title>
+</head>
+<body>
+    <h1>The Dojo Message Board</h1>
+    <hr>
+    <!-- This is the form to submit a Message -->
+    <div>
+        <form action="/addMessage" method="post">
+            <h4>Name: </h4><input type="text" name="userName" id="">
+            <h5>Message: </h5><textarea name='message' rows="8" cols="225"></textarea>
+            <input type="submit" value="Post Message">
+        </form>
+    </div>
+
+    <div>
+        <!-- This displays the messages -->
+        <% for(var i=0; i<messages.length; i++) { %>
+            <div id="messages">
+                <h3>Name: <%= messages[i].name  %> </h3>
+                <h4>Message: <%= messages[i].message  %> </h4>
+            </div>
+            <% for (var j=0; j<messages[i].comments.length; j++) { %>
+                <!-- This displays the comments on each message -->
+                <div id="comments">
+                    <h4>Name: <%= messages[i].comments[j].commenter %></h4>
+                    <h5>Comment: <%= messages[i].comments[j].comment %> </h5>
+            <% } %>                </div>
+            <!-- This is the form to submit a comment on the parent Message -->
+            <div>
+            <form action="/message/<%= messages[i].id %>/comment " method="post">
+                <h4>Name: <input type="text" name="commenterName" id=""></h4>
+                <h4>Comment: </h4><textarea name="comment" id="" cols="225" rows="8"></textarea>
+                <input type="submit" value="Add comment">
+            </form>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>
